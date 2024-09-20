@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh; /* Full height for centering */
+    background-color: var(--bgLight);
+}
+
+.wrapper {
+    width: 400px;
+    background-color: var(--bgSoft);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form input {
+    padding: 15px;
+    background-color: var(--bg);
+    color: var(--textColor);
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    transition: border 0.3s;
+}
+
+.form input:focus {
+    border-color: var(--btn);
+}
+
+.button {
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--btn);
+    color: var(--textColor);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: var(--btnHover);
+}
+
+.githubButton {
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    background-color: #24292e; /* GitHub dark color */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 30em; /* Full width */
+    margin-bottom: 20px; /* Space below the button */
+}
+
+.githubButton:hover {
+    background-color: #333; /* Slightly lighter on hover */
+}
+
+.link {
+    color: var(--btn);
+    font-weight: bold;
+    text-decoration: underline;
+}

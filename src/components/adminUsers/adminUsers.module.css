@@ -1,0 +1,33 @@
+.post {
+  margin: 20px;
+  padding: 10px;
+  background-color: var(--bgSoft);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.postTitle {
+  color: var(--textSoft);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.postButton {
+  padding: 8px 15px;
+  background-color:#dd2d2d;
+  color: var(--text);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
