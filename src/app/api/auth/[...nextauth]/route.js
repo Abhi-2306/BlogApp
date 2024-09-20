@@ -8,15 +8,23 @@ import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { authConfig } from "@/lib/auth.config";
 const login = async (credentials) => {
+    console.log("inside login");
+    
     try {
         await connectToDb();
         const user = await User.findOne({ username: credentials.username }); // Find by username
+        console.log(user);
+        
         if (!user) {
+            console.log("User not found");
+            
             throw new Error("User not found");
         }
 
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
         if (!isPasswordValid) {
+            console.log("Invalid password");
+            
             throw new Error("Invalid password");
         }
 

@@ -61,6 +61,10 @@ export const authConfig = {
             return token;
         },
         async session({ session, token }) {
+            console.log("inside session",token);
+            console.log("inside session",session);
+            
+            
             if (token) {
                 session.user.id = token.id;
                 session.user.isAdmin = token.isAdmin;
@@ -70,6 +74,8 @@ export const authConfig = {
         },
         async authorized({ auth, request }) {
             const user = auth?.user;
+            console.log("inside authorized",user);
+            
             const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
             const isOnBlogPage = request.nextUrl?.pathname.startsWith("/blog");
             const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
