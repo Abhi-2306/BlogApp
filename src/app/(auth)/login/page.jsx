@@ -65,7 +65,7 @@
 // export default LoginPage;
 "use client";
 
-import LoginForm from "@/components/loginForm/LoginForm";
+import LoginForm from "@/components/loginForm/loginForm";
 import React from "react";
 const LoginPage = () => {
     return (
