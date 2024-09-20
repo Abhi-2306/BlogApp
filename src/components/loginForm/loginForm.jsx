@@ -14,11 +14,15 @@ const LoginForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log("inside handle submit", formData.username, formData.password);
+        
         const result = await signIn("credentials", {
             username: formData.username,
             password: formData.password,
             redirect: false,
         });
+        console.log("result  ",result);
+        
         if (result.error) {
             setError(result.error);
         }else{
