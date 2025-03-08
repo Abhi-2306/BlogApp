@@ -4,7 +4,8 @@ import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
 
 const getpost = async (slug)=>{
-  const response = await fetch(`https://blog-app-git-master-abhijiths-projects-7705a139.vercel.app/api/blog/${slug}`);
+  // const response = await fetch(`https://blog-app-git-master-abhijiths-projects-7705a139.vercel.app/api/blog/${slug}`);
+  const response = await fetch(`http://localhost:3000/api/blog/${slug}`);
   if(!response.ok){
     throw new Error("Failed to fetch data");
   }

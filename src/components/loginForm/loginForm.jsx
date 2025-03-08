@@ -12,20 +12,27 @@ const LoginForm = () => {
     });
     const [error, setError] = useState(null);
 
+    const handleGithubLogin = async () => {
+        await signIn("github", { callbackUrl: "http://localhost:3000" });
+    };
+    const handleGoogleLogin = async () => {
+        await signIn("google", { callbackUrl: "http://localhost:3000" });
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("inside handle submit", formData.username, formData.password);
-        
+
         const result = await signIn("credentials", {
             username: formData.username,
             password: formData.password,
             redirect: false,
         });
-        console.log("result  ",result);
-        
+        console.log("result  ", result);
+
         if (result.error) {
             setError(result.error);
-        }else{
+        } else {
             window.location.href = "/";
         }
     };
@@ -40,7 +47,7 @@ const LoginForm = () => {
     return (
         <div className={styles.container}>
             <button className={styles.githubButton} onClick={handleGithubLogin}>Login with GitHub</button>
-            {/* <button className={styles.googleButton} onClick={handleGoogleLogin}>Login with Google</button> */}
+            <button className={styles.githubButton} onClick={handleGoogleLogin}>Login with Google</button> 
             <div className={styles.wrapper}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <input

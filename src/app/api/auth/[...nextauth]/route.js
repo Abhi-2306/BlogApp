@@ -1,30 +1,30 @@
 /* eslint-disable no-undef */
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import connectToDb from "@/lib/utils";
 import { User } from "@/lib/models";
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { authConfig } from "@/lib/auth.config";
 const login = async (credentials) => {
-    console.log("inside login");
-    
+    // console.log("inside login");
+
     try {
         await connectToDb();
-        const user = await User.findOne({ username: credentials.username }); // Find by username
-        console.log(user);
-        
+        const user = await User.findOne({ username: credentials.username });
+        // console.log(user);
+
         if (!user) {
             console.log("User not found");
-            
+
             throw new Error("User not found");
         }
 
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
         if (!isPasswordValid) {
             console.log("Invalid password");
-            
+
             throw new Error("Invalid password");
         }
 
@@ -42,8 +42,8 @@ export const authOptions = {
             clientSecret: process.env.GITHUB_SECRET,
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID,       // Add your Google client ID
-            clientSecret: process.env.GOOGLE_SECRET, // Add your Google client secret
+            clientId: process.env.GOOGLE_ID,       
+            clientSecret: process.env.GOOGLE_SECRET,
         }),
         CredentialsProvider({
             async authorize(credentials) {
@@ -52,7 +52,6 @@ export const authOptions = {
                     return user;
                 } catch (error) {
                     throw new Error(error.message);
-                    // return null;
                 }
             }
 
@@ -61,12 +60,6 @@ export const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async session({ session, token, user }) {
-            // session.user = user;
-            // Log session and user details
-            // console.log("Session details:", session);
-            // console.log("User details:", session.user);  // Access user details from session
-
-            // You can return the session with modifications if needed
             return session;
         },
         async signIn({ account, profile, user }) {
@@ -91,25 +84,25 @@ export const authOptions = {
                 }
                 return true;
             }
-            // if (account.provider === "github" || account.provider === "google") {
-            //     await connectToDb();
+            if (account.provider === "google") {
+                await connectToDb();
 
-            //     try {
-            //         const existingUser = await User.findOne({ email: user.email });
-            //         if (!existingUser) {
-            //             const newUser = new User({
-            //                 username: profile.name || profile.login, // Use name or login based on the provider
-            //                 email: profile.email,
-            //                 image: profile.picture || profile.avatar_url // Use picture or avatar_url based on the provider
-            //             });
-            //             await newUser.save();
-            //         }
-            //     } catch (err) {
-            //         console.log(err);
-            //         return false;
-            //     }
-            //     return true;
-            // }
+                try {
+                    const existingUser = await User.findOne({ email: user.email });
+                    if (!existingUser) {
+                        const newUser = new User({
+                            username: profile.name,
+                            email: profile.email,
+                            image: profile.picture
+                        })
+                        await newUser.save();
+                    }
+                } catch (err) {
+                    console.log(err);
+                    return false;
+                }
+                return true;
+            }
             return true;
         },
         ...authConfig.callbacks,

@@ -75,9 +75,7 @@ export const deleteUser = async (formData) => {
     }
 }
 
-export const handleGithubLogin = async () => {
-    await signIn("github", { callbackUrl: "/" });
-};
+
 // export const handleGoogleLogin = async () => {  
 //     await signIn("google", { callbackUrl: "/" });
 // };
